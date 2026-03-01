@@ -12,14 +12,12 @@ jobs:
       contents: write
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
       - name: Update log 24f2009312@ds.study.iitm.ac.in
-        run: |
-          echo "Auto update at $(date) $RANDOM" >> activity_log.txt
-          git config user.name "github-actions"
-          git config user.email "24f2009312@ds.study.iitm.ac.in"
-          git add activity_log.txt
-          git commit -m "Automated daily update"
-          git push
+  run: |
+    sleep 70
+    echo "Auto update at $(date) $RANDOM" >> activity_log.txt
+    git config user.name "github-actions"
+    git config user.email "24f2009312@ds.study.iitm.ac.in"
+    git add activity_log.txt
+    git commit -m "Automated daily update"
+    git push
