@@ -2,7 +2,7 @@ name: DevSync Daily Auto Commit
 
 on:
   schedule:
-    - cron: '*/5 * * * *'   # temporary for testing
+    - cron: '17 2 * * *'   # temporary for testing
   workflow_dispatch:
 
 jobs:
