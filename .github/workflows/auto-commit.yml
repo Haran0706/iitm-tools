@@ -2,7 +2,7 @@ name: DevSync Daily Auto Commit
 
 on:
   schedule:
-    - cron: '17 2 * * *'   # temporary for testing
+    - cron: '17 2 * * *'   # daily at 07:47 AM IST
   workflow_dispatch:
 
 jobs:
@@ -12,12 +12,23 @@ jobs:
       contents: write
 
     steps:
+      # 1. Clone the repository into the runner
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          fetch-depth: 0
+
+      # 2. Make a guaranteed change
       - name: Update log 24f2009312@ds.study.iitm.ac.in
-  run: |
-    sleep 70
-    echo "Auto update at $(date) $RANDOM" >> activity_log.txt
-    git config user.name "github-actions"
-    git config user.email "24f2009312@ds.study.iitm.ac.in"
-    git add activity_log.txt
-    git commit -m "Automated daily update"
-    git push
+        run: |
+          echo "Auto update at $(date) $RANDOM" >> activity_log.txt
+
+      # 3. Commit and push
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "24f2009312@ds.study.iitm.ac.in"
+          git add activity_log.txt
+          git commit -m "Automated daily update" || echo "No changes"
+          git push origin main
